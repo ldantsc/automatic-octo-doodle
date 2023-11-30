@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 // Criar usuario a partir da classe
 class Usuario {
-  constructor(id, name, email, password, phone) {
+  constructor(id, name, email, password, phone, token) {
     this.id = id + 1;
     this.nome = name;
     this.email = email;
@@ -13,12 +13,12 @@ class Usuario {
     this.data_criacao = this.localDate();
     this.data_atualizacao = this.localDate();
     this.ultimo_login = this.localDate();
-    this.token = this.tokenGenerator();
+	this.token = token
   }
 
   // Data local
   localDate() {
-    let date = new Date();
+    let date = Date.now();
     return date;
   }
 
@@ -32,7 +32,7 @@ class Usuario {
   // Gerar token
   tokenGenerator() {
     const SECRET = crypto.createSign('sha256').toString('base64');
-    const token = jwt.sign({ id: this.id }, SECRET, { expiresIn: '10000ms' });
+    const token = jwt.sign({ id: this.id }, SECRET, { expiresIn: 100 });
     return token;
   }
 }

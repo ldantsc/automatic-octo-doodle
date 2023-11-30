@@ -15,8 +15,8 @@ function userLogin(mail, password) {
 }
 
 // dados visiveis ao usuario
-function userPublicData(user) {
-  const { id, data_criacao, data_atualizacao, ultimo_login, token } = user;
+function userPublicData(user, token) {
+  const { id, data_criacao, data_atualizacao, ultimo_login } = user;
   const userData = {
     id: id,
     data_criacao: data_criacao,
