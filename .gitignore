@@ -1,4 +1,6 @@
 node_modules
+docx
+*.docx
 
 # gitignore para express cedido por dphurley
 # https://gist.github.com/dphurley/182ddab5a2482fbdda2de3b09bff446a
