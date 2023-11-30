@@ -1,12 +1,11 @@
 const express = require('express');
 const Usuario = require('./models/user');
-const { usersData, findUserEmail, userViewer } = require('./models/data');
+const { usersData, findUserEmail, userPublicData } = require('./models/data');
 const app = express.Router();
 
-// SIGN UP
-
+// SIGN UP (CADASTRO DE USUÁRIO)
 app.get('/signup', (req, res) => {
-  res.json({test: "test"})
+  res.json({ test: 'test' });
 });
 
 // método POST
@@ -26,9 +25,9 @@ app.post('/signup', (req, res) => {
         telefones,
       );
       usersData.push(newUser);
-      res.status(201).json(userViewer(newUser))
+      res.status(201).json(userPublicData(newUser));
     } else {
-      // se existir, retornar mensagem
+      // seu email existe...
       res.send({ mensagem: 'E-mail já existente' });
     }
   } catch (err) {

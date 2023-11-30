@@ -2,19 +2,20 @@ const bcrypt = require('bcryptjs');
 
 let usersData = [];
 
+// procurar usuario pelo email
 function findUserEmail(match) {
   return usersData.find((user) => user.email === match);
 }
 
-function findUserPassword(password) {
-   const test2 = usersData.find((user) => user.password === password)
-   console.log(test2.password)
-  const test = bcrypt.compare(password, test2.password);
-  console.log(test)
-  return test
+// procurar usuario pelo email e verificar se senha esta correta
+function userLogin(mail, password) {
+  const user = findUserEmail(mail);
+  const passwordMatch = bcrypt.compareSync(password, user.senha);
+  return passwordMatch;
 }
 
-function userViewer(user) {
+// dados visiveis ao usuario
+function userPublicData(user) {
   const { id, data_criacao, data_atualizacao, ultimo_login, token } = user;
   const userData = {
     id: id,
@@ -29,6 +30,6 @@ function userViewer(user) {
 module.exports = {
   usersData: usersData,
   findUserEmail: findUserEmail,
-  findUserPassword: findUserPassword,
-  userViewer: userViewer,
+  userLogin: userLogin,
+  userPublicData: userPublicData,
 };
