@@ -1,12 +1,12 @@
 const express = require('express');
 const Usuario = require('./models/user');
-const usersData = require('./models/data');
+const { usersData, findUserEmail, userViewer } = require('./models/data');
 const app = express.Router();
 
 // SIGN UP
 
 app.get('/signup', (req, res) => {
-	res.json(usersData)
+  res.json({test: "test"})
 });
 
 // método POST
@@ -14,10 +14,10 @@ app.post('/signup', (req, res) => {
   // Criando usuario...
   try {
     let { nome, email, senha, telefones } = req.body;
-    //verificar se email existe no array usuarios
-    const findUserEmail = usersData.find((userMail) => userMail.email === email);
+    //verificar se email existe no array de dados usuarios
+    const isEmailExist = findUserEmail(email);
     //se usuario não existir, criar novo usuario
-    if (!findUserEmail) {
+    if (!isEmailExist) {
       const newUser = new Usuario(
         usersData.length,
         nome,
@@ -26,7 +26,7 @@ app.post('/signup', (req, res) => {
         telefones,
       );
       usersData.push(newUser);
-      res.json(newUser);
+      res.status(201).json(userViewer(newUser))
     } else {
       // se existir, retornar mensagem
       res.send({ mensagem: 'E-mail já existente' });
@@ -36,4 +36,4 @@ app.post('/signup', (req, res) => {
   }
 });
 
-module.exports = app
+module.exports = app;
