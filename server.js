@@ -3,6 +3,8 @@ const signUp = require('./sign-up');
 const signIn = require('./sign-in');
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 app.use(express.json());
 
 app.use('/', signUp);
@@ -16,6 +18,6 @@ app.get('/', (req, res) => {
 });
 
 //servidor local na porta 3000
-app.listen(3000, () => {
-  console.log('servidor rodando');
+app.listen(port, () => {
+  console.log(`servidor rodando em ${port}`);
 });
