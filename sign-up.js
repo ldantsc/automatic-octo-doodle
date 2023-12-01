@@ -23,7 +23,7 @@ app.post('/signup', (req, res) => {
         { userId: usersData.length + 1 },
         process.env._MY_SECRET,
         {
-          expiresIn: '30s',
+          expiresIn: 1800,
         }
       );
       const newUser = new Usuario(
