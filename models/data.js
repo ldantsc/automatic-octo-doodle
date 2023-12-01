@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 
+// usuarios cadastrados será guardado nesta varíavel
 let usersData = [];
 
 // procurar usuario pelo email

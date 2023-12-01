@@ -38,7 +38,7 @@ app.post('/signup', (req, res) => {
       const login = findUserEmail(newUser.email);
       res.status(201).json(userPublicData(login));
     } else {
-      // seu email existe...
+      // seu email existir...
       res.send({ mensagem: 'E-mail já existente' });
     }
   } catch (err) {

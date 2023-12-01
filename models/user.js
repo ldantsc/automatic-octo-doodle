@@ -1,6 +1,4 @@
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
-const jwt = require('jsonwebtoken');
 
 // Criar usuario a partir da classe
 class Usuario {
@@ -18,9 +16,17 @@ class Usuario {
 
   // Data local
   localDate() {
-    let date = Date.now();
-    return date;
+    const date = new Date();
+    const formatDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    return formatDate;
   }
+
+  /* 
+  Atualizar hora
+  refreshDate() {
+    this.ultimo_login = this.localDate();
+  }
+  */
 
   // Gerar hash para senha
   encryptPasswordGenerator(password) {
@@ -29,12 +35,14 @@ class Usuario {
     return hash;
   }
 
-  // Gerar token (INATIVO)
+  /*
+  Gerar token (INATIVO)
   tokenGenerator() {
     const SECRET = crypto.createSign('sha256').toString('base64');
     const token = jwt.sign({ id: this.id }, SECRET, { expiresIn: 100 });
     return token;
   }
+  */
 }
 
 module.exports = Usuario;

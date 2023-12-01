@@ -1,5 +1,6 @@
 const express = require('express');
 const { findUserEmail, userLogin, userPublicData } = require('./models/data');
+/*const Usuario = require('./models/user');*/
 const app = express.Router();
 require('dotenv').config();
 
@@ -22,7 +23,8 @@ app.post('/login', (req, res) => {
     if (loginEmailValidate && !loginPasswordValidate) {
       res.json('Usuário e/ ou senha inválidos');
     }
-    // retorno do json
+    // retorno do json + atualizar hora
+    /* Usuario.refreshDate() */
     res.status(201).json(userPublicData(loginEmailValidate));
   } catch (err) {
     res.send({ mensagem: 'Nenhum usuário cadastrado' });
