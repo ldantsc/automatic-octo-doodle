@@ -42,7 +42,7 @@ app.post('/signup', (req, res) => {
       res.send({ mensagem: 'E-mail já existente' });
     }
   } catch (err) {
-    res.send({ mensagem: 'mensagem de erro' });
+    res.send({ mensagem: 'Erro ao cadastrar' });
   }
 });
 
