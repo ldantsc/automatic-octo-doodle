@@ -1,12 +1,13 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const { findUserEmail, userLogin, userPublicData } = require('./models/data');
 const app = express.Router();
 require('dotenv').config();
 
 // SIGN IN (LOGAR USUÁRIO)
 app.get('/login', (req, res) => {
-  res.send('valido');
+  res.send({
+    mensagem: 'Para fazer o login utilize o POST com email e senha do usuário',
+  });
 });
 
 //POST
@@ -17,18 +18,14 @@ app.post('/login', (req, res) => {
     // verificar e validar email/senha
     const loginEmailValidate = findUserEmail(email);
     const loginPasswordValidate = userLogin(email, senha);
-    const id = loginEmailValidate.id;
     // se email e senha não consta...
     if (loginEmailValidate && !loginPasswordValidate) {
       res.json('Usuário e/ ou senha inválidos');
     }
     // retorno do json
-    const token = jwt.sign({ userId: id }, process.env.SECRET, {
-      expiresIn: 1800,
-    });
-    res.status(201).json(userPublicData(loginEmailValidate, token));
+    res.status(201).json(userPublicData(loginEmailValidate));
   } catch (err) {
-    res.json({ mensagem: 'mensagem invalida' });
+    res.send({ mensagem: 'Nenhum usuário cadastrado' });
   }
 });
 

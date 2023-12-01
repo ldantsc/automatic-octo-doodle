@@ -13,6 +13,7 @@ class Usuario {
     this.data_criacao = this.localDate();
     this.data_atualizacao = this.localDate();
     this.ultimo_login = this.localDate();
+    this.token = token;
   }
 
   // Data local

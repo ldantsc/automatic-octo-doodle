@@ -7,6 +7,11 @@ function findUserEmail(match) {
   return usersData.find((user) => user.email === match);
 }
 
+//procurar usuario pelo
+function findUserId(match) {
+  return usersData.find((user) => user.id === match);
+}
+
 // procurar usuario pelo email e verificar se senha esta correta
 function userLogin(mail, password) {
   const user = findUserEmail(mail);
@@ -15,8 +20,8 @@ function userLogin(mail, password) {
 }
 
 // dados visiveis ao usuario
-function userPublicData(user, token) {
-  const { id, data_criacao, data_atualizacao, ultimo_login } = user;
+function userPublicData(user) {
+  const { id, data_criacao, data_atualizacao, ultimo_login, token } = user;
   const userData = {
     id: id,
     data_criacao: data_criacao,
@@ -32,4 +37,5 @@ module.exports = {
   findUserEmail: findUserEmail,
   userLogin: userLogin,
   userPublicData: userPublicData,
+  findUserId: findUserId,
 };
