@@ -5,7 +5,7 @@ function validateJwt(req, res, next) {
     // Bearer token, split para trazer apenas o token
     const token = req.headers.authorization.split(' ')[1];
     // método de veficação do jwt
-    jwt.verify(token, '123', (err, decoded) => {
+    jwt.verify(token, process.env._MY_SECRET, (err, decoded) => {
       if (err) {
         if (err.message === 'jwt expired') {
           res.status(401).send({ mensagem: 'Sessão Invalida' });

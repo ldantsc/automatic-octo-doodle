@@ -4,7 +4,6 @@ const { usersData, findUserEmail, userPublicData } = require('./models/data');
 const jwt = require('jsonwebtoken');
 const app = express.Router();
 require('dotenv').config();
-const secret = '123';
 
 // SIGN UP (CADASTRO DE USUÁRIO)
 app.get('/signup', (req, res) => {
@@ -20,9 +19,13 @@ app.post('/signup', (req, res) => {
     const isEmailExist = findUserEmail(email);
     //se usuario não existir, criar novo usuario
     if (!isEmailExist) {
-      const token = jwt.sign({ userId: usersData.length + 1 }, secret, {
-        expiresIn: '30s',
-      });
+      const token = jwt.sign(
+        { userId: usersData.length + 1 },
+        process.env._MY_SECRET,
+        {
+          expiresIn: '30s',
+        }
+      );
       const newUser = new Usuario(
         usersData.length,
         nome,

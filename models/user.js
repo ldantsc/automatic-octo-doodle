@@ -22,14 +22,14 @@ class Usuario {
     return date;
   }
 
-  // Gerar hash
+  // Gerar hash para senha
   encryptPasswordGenerator(password) {
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
     return hash;
   }
 
-  // Gerar token
+  // Gerar token (INATIVO)
   tokenGenerator() {
     const SECRET = crypto.createSign('sha256').toString('base64');
     const token = jwt.sign({ id: this.id }, SECRET, { expiresIn: 100 });
