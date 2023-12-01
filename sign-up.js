@@ -1,9 +1,13 @@
 const express = require('express');
 const Usuario = require('./models/user');
-const { usersData, findUserEmail, userLogin, userPublicData } = require('./models/data');
-const jwt = require('jsonwebtoken')
+const {
+  usersData,
+  findUserEmail,
+  userPublicData,
+} = require('./models/data');
+const jwt = require('jsonwebtoken');
 const app = express.Router();
-const SECRET = 'test'
+require('dotenv').config();
 
 // SIGN UP (CADASTRO DE USUÁRIO)
 app.get('/signup', (req, res) => {
@@ -27,9 +31,10 @@ app.post('/signup', (req, res) => {
         telefones,
       );
       usersData.push(newUser);
-      const login =  findUserEmail(newUser.email)
-      console.log(login.id)
-      const token = jwt.sign({ userId: login.id }, SECRET, { expiresIn: 100 });
+      const login = findUserEmail(newUser.email);
+      const token = jwt.sign({ userId: newUser.id }, process.env.SECRET, {
+        expiresIn: '20s',
+      });
       res.status(201).json(userPublicData(login, token));
     } else {
       // seu email existe...
