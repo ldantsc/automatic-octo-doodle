@@ -7,7 +7,9 @@ require('dotenv').config();
 
 // SIGN UP (CADASTRO DE USUÁRIO)
 app.get('/signup', (req, res) => {
-  res.json(usersData);
+  res.send({
+    mensagem: 'Para fazer o cadastro utilize o POST',
+  });
 });
 
 // método POST
@@ -21,7 +23,7 @@ app.post('/signup', (req, res) => {
     if (!isEmailExist) {
       const token = jwt.sign(
         { userId: usersData.length + 1 },
-        process.env.SECRET,
+        process.env._MY_SECRET,
         {
           expiresIn: 1800,
         }
