@@ -21,7 +21,7 @@ app.post('/signup', (req, res) => {
     if (!isEmailExist) {
       const token = jwt.sign(
         { userId: usersData.length + 1 },
-        process.env._MY_SECRET,
+        process.env.SECRET,
         {
           expiresIn: 1800,
         }
